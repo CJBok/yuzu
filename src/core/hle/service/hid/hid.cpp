@@ -278,7 +278,7 @@ Hid::Hid(Core::System& system) : ServiceFramework("hid"), system(system) {
         {527, nullptr, "EnablePalmaBoostMode"},
         {528, nullptr, "GetPalmaBluetoothAddress"},
         {529, nullptr, "SetDisallowedPalmaConnection"},
-        {1000, nullptr, "SetNpadCommunicationMode"},
+        {1000, &Hid::SetNpadCommunicationMode, "SetNpadCommunicationMode"},
         {1001, nullptr, "GetNpadCommunicationMode"},
         {1002, nullptr, "SetTouchScreenConfiguration"},
         {1003, nullptr, "IsFirmwareUpdateNeededForNotification"},
@@ -847,6 +847,19 @@ void Hid::SetPalmaBoostMode(Kernel::HLERequestContext& ctx) {
     const auto unknown{rp.Pop<u32>()};
 
     LOG_WARNING(Service_HID, "(STUBBED) called, unknown={}", unknown);
+
+    IPC::ResponseBuilder rb{ctx, 2};
+    rb.Push(RESULT_SUCCESS);
+}
+
+// 1000
+void Hid::SetNpadCommunicationMode(Kernel::HLERequestContext& ctx) {
+    IPC::RequestParser rp{ctx};
+    const auto applet_resource_user_id{rp.Pop<u64>()};
+    const auto npad_communication_mode{rp.Pop<u32>()};
+
+    LOG_WARNING(Service_HID, "(STUBBED) called, applet_resource_user_id={}, mode={}",
+                applet_resource_user_id, npad_communication_mode);
 
     IPC::ResponseBuilder rb{ctx, 2};
     rb.Push(RESULT_SUCCESS);
