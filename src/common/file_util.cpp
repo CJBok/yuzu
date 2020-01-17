@@ -724,6 +724,10 @@ const std::string& GetUserPath(UserPath path, const std::string& new_path) {
             break;
         }
     }
+    
+    if (paths[path].back() != '\\' && paths[path].back() != '/') {
+        paths[path] = paths[path] + DIR_SEP;
+    }
 
     return paths[path];
 }
